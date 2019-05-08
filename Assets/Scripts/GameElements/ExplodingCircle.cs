@@ -13,13 +13,11 @@ public class ExplodingCircle : BaseCircle
         print("Green Exploded!");
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
         InitTimer();
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckExplosion();

@@ -47,10 +47,8 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     }
 
     virtual protected void FillShape()
-    {
-
+    { 
         float newFillAmount = (this.BlowTime - Time.time) / BlowTime;
-
         fillImage.fillAmount = newFillAmount;
     }
 
