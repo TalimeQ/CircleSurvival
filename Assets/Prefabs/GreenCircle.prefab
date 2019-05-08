@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1131573377025880135}
   - component: {fileID: 2129615659}
   m_Layer: 5
-  m_Name: BaseImage
-  m_TagString: Untagged
+  m_Name: GreenCircle
+  m_TagString: Exploding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

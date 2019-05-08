@@ -26,6 +26,16 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     protected abstract void Explode();
     protected abstract void OnTouched();
 
+    void Awake()
+    {
+        InitTimer();
+    }
+
+    void OnEnable()
+    {
+        InitTimer();
+    }
+
     void Update()
     {
         CheckExplosion();
@@ -44,6 +54,7 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     protected void InitTimer()
     {
         blowTime = Time.time + BlowInterval;
+        print("Time init!");
     }
 
     virtual protected void FillShape()
