@@ -11,6 +11,7 @@ public class BlackCircle : BaseCircle
     {
         this.gameObject.SetActive(false);
         spawnListener.RequestRemove(this.gameObject);
+        NotifyRemove();
     }
 
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class BlackCircle : BaseCircle
 
     protected override void OnTouched()
     {
-        print("Black touched!");
+        NotifyLose();
     }
 
 }

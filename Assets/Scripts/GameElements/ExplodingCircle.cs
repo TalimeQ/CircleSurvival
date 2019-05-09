@@ -10,6 +10,7 @@ public class ExplodingCircle : BaseCircle
     protected override void Explode()
     {
         this.gameObject.SetActive(false);
+        NotifyLose();
         spawnListener.RequestRemove(this.gameObject);
     }
 
@@ -22,7 +23,7 @@ public class ExplodingCircle : BaseCircle
     {
         CheckExplosion();
     }
-
+        
     protected override void CheckExplosion() 
     {
         base.CheckExplosion();
@@ -30,6 +31,8 @@ public class ExplodingCircle : BaseCircle
 
     protected override void OnTouched()
     {
-        print("Exploding Touched!");
+        spawnListener.RequestRemove(this.gameObject);
+        NotifyRemove();
+        this.gameObject.SetActive(false);
     }
 }

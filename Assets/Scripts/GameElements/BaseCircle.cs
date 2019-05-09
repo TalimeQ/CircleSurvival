@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     Image fillImage;
     [SerializeField]
     public ISpawnListener spawnListener;
+
+    public static event Action<BaseCircle> OnCircleRemoved;
+    public static event Action<BaseCircle> OnPlayerFail;
 
 
     private float currentBlowInterval = 3.0f;
@@ -65,6 +69,24 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
             this.Explode();
         }
 
+    }
+
+    protected void NotifyLose()
+    {
+        if(OnPlayerFail != null)
+        {
+            print("Circle notify lose!");
+            OnPlayerFail(this);
+        }
+    }
+
+    protected void NotifyRemove()
+    {
+        if(OnCircleRemoved != null)
+        {
+            print("Circle notify remove!");
+            OnCircleRemoved(this);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
