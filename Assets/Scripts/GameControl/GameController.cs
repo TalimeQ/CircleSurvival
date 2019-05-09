@@ -33,8 +33,6 @@ public class GameController : MonoBehaviour
     {
         timeBetweenSpawns = currentGamemode.CircleSpawnInterval;
         nextSpawn = Time.time + timeBetweenSpawns;
-
-
     }
 
     void OrderSpawn()

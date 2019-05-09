@@ -13,14 +13,18 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     float maxBlowInterval;
     [SerializeField]
     Image fillImage;
+    [SerializeField]
+    public ISpawnListener spawnListener;
 
 
     private float currentBlowInterval = 3.0f;
+    private float currentExplosionModifier = 0.0f;
     private float blowTime = 0.0f;
 
 
     public float BlowInterval { get { return currentBlowInterval; } }
     public float BlowTime { get { return blowTime; } }
+    public float CurrentExplosionModifier { set { currentExplosionModifier = value; } get { return currentExplosionModifier; } }
 
 
     protected abstract void Explode();
@@ -34,6 +38,7 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     void OnEnable()
     {
         InitTimer();
+
     }
 
     void Update()
@@ -41,6 +46,17 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
         CheckExplosion();
     }
 
+    protected void InitTimer()
+    {
+        blowTime = Time.time + BlowInterval;
+    }
+
+    virtual protected void FillShape()
+    { 
+        float newFillAmount = (this.BlowTime - Time.time) / BlowInterval;
+        fillImage.fillAmount = newFillAmount;
+    }
+        
     protected virtual void CheckExplosion()
     {
         FillShape();
@@ -51,20 +67,10 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
 
     }
 
-    protected void InitTimer()
-    {
-        blowTime = Time.time + BlowInterval;
-        print("Time init!");
-    }
-
-    virtual protected void FillShape()
-    { 
-        float newFillAmount = (this.BlowTime - Time.time) / BlowTime;
-        fillImage.fillAmount = newFillAmount;
-    }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         OnTouched();
     }
+
+    
 }

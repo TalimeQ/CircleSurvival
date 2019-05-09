@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 834408544732775706}
   - component: {fileID: 834408544732775707}
   - component: {fileID: 834408544732775705}
+  - component: {fileID: -1621583279306316830}
   m_Layer: 5
   m_Name: BlackCircle
   m_TagString: Black
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -187.2, y: -31.8}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &834408544732775706
 CanvasRenderer:
@@ -91,6 +92,22 @@ MonoBehaviour:
   minBlowInterval: 0
   maxBlowInterval: 0
   fillImage: {fileID: 834408545841492479}
+--- !u!58 &-1621583279306316830
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834408544732775701}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &834408545841492473
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +143,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &834408545841492478
 CanvasRenderer:

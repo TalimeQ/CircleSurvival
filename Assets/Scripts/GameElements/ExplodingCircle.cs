@@ -10,7 +10,7 @@ public class ExplodingCircle : BaseCircle
     protected override void Explode()
     {
         this.gameObject.SetActive(false);
-        print("Green Exploded!");
+        spawnListener.RequestRemove(this.gameObject);
     }
 
     void Awake()

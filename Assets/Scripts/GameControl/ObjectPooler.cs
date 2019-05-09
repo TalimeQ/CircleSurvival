@@ -16,7 +16,6 @@ namespace Arcade.Spawn {
         [SerializeField]
         private List<ObjectPoolItem> itemsToPool;
         private List<GameObject> pooledObjects;
-
         public static ObjectPooler SharedInstance;
 
 
@@ -35,6 +34,7 @@ namespace Arcade.Spawn {
                 for(int i = 0; i < item.amountToPool; i ++)
                 { 
                 GameObject obj = (GameObject)Instantiate(item.objectToPool, this.gameObject.transform);
+                obj.GetComponent<BaseCircle>().spawnListener = this.gameObject.GetComponent<Spawner>();
                 obj.SetActive(false);
                 pooledObjects.Add(obj);
                 }
@@ -58,6 +58,7 @@ namespace Arcade.Spawn {
                     if(item.shouldExpand)
                     { 
                     GameObject obj = (GameObject)Instantiate(item.objectToPool, this.gameObject.transform);
+                    obj.GetComponent<BaseCircle>().spawnListener = this.gameObject.GetComponent<Spawner>();
                     obj.SetActive(false);
                     pooledObjects.Add(obj);
                     return obj;
