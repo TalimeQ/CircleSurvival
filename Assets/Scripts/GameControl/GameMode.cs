@@ -6,7 +6,8 @@ using UnityEngine;
 public class GameMode : ScriptableObject
 {
     public float CircleSpawnInterval;
-    public float DifficultyInterval;
+    public float DifficultyIntervalChange;
     public float StartingMaxCircleTimer;
     public float StartingMinCircleTimer;
+    public float blackCircleChance;
 }

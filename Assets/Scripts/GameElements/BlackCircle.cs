@@ -25,7 +25,6 @@ public class BlackCircle : BaseCircle
     void Update()
     {
         CheckExplosion();
-
     }
 
     protected override void CheckExplosion()

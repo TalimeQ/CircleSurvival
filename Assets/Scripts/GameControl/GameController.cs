@@ -10,11 +10,11 @@ public class GameController : MonoBehaviour
     GameMode currentGamemode;
     [SerializeField]
     Spawner circleSpawner;
-    
+     
     [SerializeField]
     List<GameObject> spawnedCircles;
 
-    Dictionary<string,int> objectAmount = new Dictionary<string, int>();
+    public static float timePassed = 0.0f;
 
     float timeBetweenSpawns;
     float nextSpawn;
@@ -32,16 +32,17 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > nextSpawn && GameRunning) OrderSpawn();
+        if (GameRunning)
+        {
+            timePassed += Time.deltaTime;
+            if (Time.time > nextSpawn) OrderSpawn();
+        }
+        
     }
 
     void InitGame()
     {
         timeBetweenSpawns = currentGamemode.CircleSpawnInterval;
-        foreach(GameObject circleToSpawn in spawnedCircles)
-        {
-            objectAmount.Add(circleToSpawn.tag, 0);
-        }
         nextSpawn = Time.time + timeBetweenSpawns;
         GameRunning = true;
     }
@@ -49,18 +50,14 @@ public class GameController : MonoBehaviour
     void OrderSpawn()
     {
         float randomChance = Random.Range(0.0f, 100.0f);
-        // TODO make it gamemode based :)
-        if(randomChance <= 10.0f) circleSpawner.Spawn("Black", explosionIntervalModifier);
+        if(randomChance <= currentGamemode.blackCircleChance) circleSpawner.Spawn("Black", explosionIntervalModifier);
         else circleSpawner.Spawn("Exploding", explosionIntervalModifier);
-
-
         nextSpawn = Time.time + timeBetweenSpawns;
     }
 
     void OnCircleRemoved(BaseCircle circle)
     {
-        objectAmount[circle.gameObject.tag]--;
-        print("Removal notified!");
+        // Left for some juicy scoring system for later
     }
 
     void OnPlayerFailed(BaseCircle circle)
