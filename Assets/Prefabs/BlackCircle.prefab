@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8036e2545d0374380c63d9c1b7b720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minBlowInterval: 0
-  maxBlowInterval: 0
+  minBlowInterval: 2
+  maxBlowInterval: 4
   fillImage: {fileID: 834408545841492479}
 --- !u!58 &-1621583279306316830
 CircleCollider2D:

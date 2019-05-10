@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa86939fbb0f5c14cba39abb811c4a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circlePositions: []
 --- !u!114 &176163310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,6 +269,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGamemode: {fileID: 11400000, guid: c45937112ccbf9b4cbd5e61332584ece, type: 2}
   circleSpawner: {fileID: 176163309}
+  spawnedCircles:
+  - {fileID: 834408544732775701, guid: 9a3a7c40a4585074daf96bd6416b0d32, type: 3}
+  - {fileID: 1131573377025880137, guid: 7829f6fbff6272c418137e2602d58e20, type: 3}
 --- !u!1 &685695601
 GameObject:
   m_ObjectHideFlags: 0

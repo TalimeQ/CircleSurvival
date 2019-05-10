@@ -88,8 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f28f0cb1421da4d9a6e72dd5d6e842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minBlowInterval: 0
-  maxBlowInterval: 0
+  minBlowInterval: 2
+  maxBlowInterval: 4
   fillImage: {fileID: 1131573377176715961}
 --- !u!1 &1131573377176715963
 GameObject:

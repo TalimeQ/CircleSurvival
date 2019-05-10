@@ -42,7 +42,6 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     void OnEnable()
     {
         InitTimer();
-
     }
 
     void Update()
@@ -52,6 +51,9 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
 
     protected void InitTimer()
     {
+        currentBlowInterval = UnityEngine.Random.Range(minBlowInterval, maxBlowInterval) -  currentExplosionModifier;
+        // Game supposed to be impossible after a while, but let keep things "human"
+        if (currentBlowInterval < 0.5f) currentBlowInterval = 0.5f; 
         blowTime = Time.time + BlowInterval;
     }
 
@@ -75,7 +77,6 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     {
         if(OnPlayerFail != null)
         {
-            print("Circle notify lose!");
             OnPlayerFail(this);
         }
     }
@@ -84,7 +85,6 @@ abstract public class BaseCircle : MonoBehaviour , IPointerClickHandler
     {
         if(OnCircleRemoved != null)
         {
-            print("Circle notify remove!");
             OnCircleRemoved(this);
         }
     }

@@ -28,17 +28,22 @@ namespace Arcade.Spawn {
 
         void Start()
         {
+            CreateObjectPool();
+        }
+
+        private void CreateObjectPool()
+        {
             pooledObjects = new List<GameObject>();
-            foreach(ObjectPoolItem item in itemsToPool)
+            foreach (ObjectPoolItem item in itemsToPool)
             {
-                for(int i = 0; i < item.amountToPool; i ++)
-                { 
-                GameObject obj = (GameObject)Instantiate(item.objectToPool, this.gameObject.transform);
-                obj.GetComponent<BaseCircle>().spawnListener = this.gameObject.GetComponent<Spawner>();
-                obj.SetActive(false);
-                pooledObjects.Add(obj);
+                for (int i = 0; i < item.amountToPool; i++)
+                {
+                    GameObject obj = (GameObject)Instantiate(item.objectToPool, this.gameObject.transform);
+                    obj.GetComponent<BaseCircle>().spawnListener = this.gameObject.GetComponent<Spawner>();
+                    obj.SetActive(false);
+                    pooledObjects.Add(obj);
                 }
-             
+
             }
         }
 
@@ -68,6 +73,13 @@ namespace Arcade.Spawn {
             return null;
         }
 
+        public void OnGameFinished()
+        {
+            foreach(GameObject deactivatedObject in pooledObjects)
+            {
+                deactivatedObject.SetActive(false);
+            }
+        }
 
     }
 }

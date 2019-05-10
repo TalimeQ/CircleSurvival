@@ -40,7 +40,13 @@ namespace Arcade.Spawn {
 
         private void SetNewPosition(RectTransform trans)
         {
-            Vector3 newPosition = new Vector3(Random.Range(0.0f, screenSize.x), Random.Range(0.0f, screenSize.y), 0);
+            float yMin, yMax, xMin, xMax;
+            xMin = trans.rect.width;
+            xMax = screenSize.x - trans.rect.width;
+            yMin = trans.rect.height;
+            yMax = screenSize.y - trans.rect.height;
+
+            Vector3 newPosition = new Vector3(Random.Range(xMin, xMax), Random.Range(yMin, yMax), 0);
             trans.position = newPosition;
         }
 
