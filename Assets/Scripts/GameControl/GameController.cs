@@ -34,12 +34,21 @@ public class GameController : MonoBehaviour
         InitGame();
     }
 
+    private void Awake()
+    {
+        InitGame();
+    }
+
     void Update()
     {
         if (GameRunning)
         {
             timePassed += Time.deltaTime;
-            if (Time.time > nextSpawn) OrderSpawn();
+            if (Time.time > nextSpawn)
+            {
+                OrderSpawn();
+                ManageTime();
+            }
         }
         
     }
@@ -47,6 +56,7 @@ public class GameController : MonoBehaviour
     void InitGame()
     {
         timeBetweenSpawns = currentGamemode.CircleSpawnInterval;
+        timePassed = 0.0f;
         nextSpawn = Time.time + timeBetweenSpawns;
         GameRunning = true;
     }
@@ -56,11 +66,12 @@ public class GameController : MonoBehaviour
         float randomChance = Random.Range(0.0f, 100.0f);
         if(randomChance <= currentGamemode.blackCircleChance) circleSpawner.Spawn("Black", explosionIntervalModifier);
         else circleSpawner.Spawn("Exploding", explosionIntervalModifier);
-        nextSpawn = Time.time + timeBetweenSpawns;
+        
     }
 
     void OnCircleRemoved(BaseCircle circle)
     {
+        DoubleTap();
         popAudioSource.PlayOneShot(popAudioSource.clip);
     }
 
@@ -77,6 +88,16 @@ public class GameController : MonoBehaviour
         uiController.OnGameFinished(isHighscore);
     }
 
+    void DoubleTap()
+    {
+        float chanceForTap = Random.Range(0, 100);
+        if(currentGamemode.DoubleTapChance >= chanceForTap)
+        {
+            print("Double tap!");
+            OrderSpawn();
+        }
+    }
+
     bool checkScore()
     {
         float oldHS = PlayerPrefs.GetFloat("Highscore", 0.0f);
@@ -86,6 +107,16 @@ public class GameController : MonoBehaviour
             return true;
         }
         else return false;
+    }
+
+    void ManageTime()
+    {
+        nextSpawn = Time.time + timeBetweenSpawns;
+        timeBetweenSpawns -= currentGamemode.CircleSpawnIntervalChange;
+        // We meed to cap maximal spawn time
+        if (timeBetweenSpawns < currentGamemode.MinimalSpawnInterval) timeBetweenSpawns = currentGamemode.MinimalSpawnInterval;
+        explosionIntervalModifier += currentGamemode.DifficultyIntervalChange;
+
     }
 
 }
