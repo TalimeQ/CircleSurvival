@@ -15,7 +15,7 @@ public class InGameUi : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI timeText;
 
-    void OnMenuButton()
+    public void OnMenuButton()
     {
         SceneManager.LoadScene(0);
     }

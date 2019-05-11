@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
     GameMode currentGamemode;
     [SerializeField]
     Spawner circleSpawner;
+    [SerializeField]
+    InGameUi uiController;
      
     [SerializeField]
     List<GameObject> spawnedCircles;
@@ -62,8 +64,26 @@ public class GameController : MonoBehaviour
 
     void OnPlayerFailed(BaseCircle circle)
     {
+        FinalizeGame();
+    }
+
+    private void FinalizeGame()
+    {
         GameRunning = false;
         ObjectPooler.SharedInstance.OnGameFinished();
+        bool isHighscore = checkScore();
+        uiController.OnGameFinished(isHighscore);
+    }
+
+    bool checkScore()
+    {
+        float oldHS = PlayerPrefs.GetFloat("Highscore", 0.0f);
+        if (oldHS < timePassed)
+        {
+            PlayerPrefs.SetFloat("Highscore", timePassed);
+            return true;
+        }
+        else return false;
     }
 
 }
