@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1f30835b5d42040817c7502b360f9f, type: 3}
   m_Name: BaseGamemode
   m_EditorClassIdentifier: 
-  CircleSpawnInterval: 1
-  DifficultyIntervalChange: 0
+  CircleSpawnInterval: 2
+  CircleSpawnIntervalChange: 0.05
+  DifficultyIntervalChange: 0.05
   StartingMaxCircleTimer: 2
   StartingMinCircleTimer: 4
   blackCircleChance: 10
+  DoubleTapChance: 20

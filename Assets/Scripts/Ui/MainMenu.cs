@@ -26,13 +26,11 @@ public class MainMenu : MonoBehaviour
 
     public void ButtonQuit()
     {
-        print("Qutting!");
         Application.Quit();
     }
 
     public void ButtonStart()
     {
-        print("Started!");
         SceneManager.LoadScene(1);
     }
 }

@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     float timeBetweenSpawns;
     float nextSpawn;
     float explosionIntervalModifier;
+    AudioSource popAudioSource;
 
     bool GameRunning = false;
 
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour
     {
         BaseCircle.OnCircleRemoved += OnCircleRemoved;
         BaseCircle.OnPlayerFail += OnPlayerFailed;
+        popAudioSource = GetComponent<AudioSource>();
         InitGame();
     }
 
@@ -59,7 +61,7 @@ public class GameController : MonoBehaviour
 
     void OnCircleRemoved(BaseCircle circle)
     {
-        // Left for some juicy scoring system for later
+        popAudioSource.PlayOneShot(popAudioSource.clip);
     }
 
     void OnPlayerFailed(BaseCircle circle)
