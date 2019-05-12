@@ -12,17 +12,13 @@ public class GameController : MonoBehaviour
     Spawner circleSpawner;
     [SerializeField]
     InGameUi uiController;
-     
     [SerializeField]
-    List<GameObject> spawnedCircles;
+    AudioSource popAudioSource;
 
     public static float timePassed = 0.0f;
-
     float timeBetweenSpawns;
     float nextSpawn;
     float explosionIntervalModifier;
-    AudioSource popAudioSource;
-
     bool GameRunning = false;
 
    
@@ -30,8 +26,13 @@ public class GameController : MonoBehaviour
     {
         BaseCircle.OnCircleRemoved += OnCircleRemoved;
         BaseCircle.OnPlayerFail += OnPlayerFailed;
-        popAudioSource = GetComponent<AudioSource>();
         InitGame();
+    }
+
+    private void OnDestroy()
+    {
+        BaseCircle.OnCircleRemoved -= OnCircleRemoved;
+        BaseCircle.OnPlayerFail -= OnPlayerFailed;
     }
 
     private void Awake()
@@ -71,8 +72,8 @@ public class GameController : MonoBehaviour
 
     void OnCircleRemoved(BaseCircle circle)
     {
-        DoubleTap();
-        popAudioSource.PlayOneShot(popAudioSource.clip);
+        BonusSpawn();
+        popAudioSource.Play();
     }
 
     void OnPlayerFailed(BaseCircle circle)
@@ -80,7 +81,7 @@ public class GameController : MonoBehaviour
         FinalizeGame();
     }
 
-    private void FinalizeGame()
+    void FinalizeGame()
     {
         GameRunning = false;
         ObjectPooler.SharedInstance.OnGameFinished();
@@ -88,12 +89,11 @@ public class GameController : MonoBehaviour
         uiController.OnGameFinished(isHighscore);
     }
 
-    void DoubleTap()
+    void BonusSpawn()
     {
-        float chanceForTap = Random.Range(0, 100);
-        if(currentGamemode.DoubleTapChance >= chanceForTap)
+        float BonusSpawnChance = Random.Range(0, 100);
+        if(currentGamemode.BonusSpawnChance >= BonusSpawnChance)
         {
-            print("Double tap!");
             OrderSpawn();
         }
     }
@@ -112,11 +112,14 @@ public class GameController : MonoBehaviour
     void ManageTime()
     {
         nextSpawn = Time.time + timeBetweenSpawns;
-        timeBetweenSpawns -= currentGamemode.CircleSpawnIntervalChange;
-        // We meed to cap maximal spawn time
-        if (timeBetweenSpawns < currentGamemode.MinimalSpawnInterval) timeBetweenSpawns = currentGamemode.MinimalSpawnInterval;
-        explosionIntervalModifier += currentGamemode.DifficultyIntervalChange;
-
+        IncreaseDifficulty();
     }
 
+    void IncreaseDifficulty()
+    {
+        timeBetweenSpawns -= currentGamemode.CircleSpawnIntervalChange;
+        // Cap minimal spawn time so the game appears to be possible to win
+        if (timeBetweenSpawns < currentGamemode.MinimalSpawnInterval) timeBetweenSpawns = currentGamemode.MinimalSpawnInterval;
+        explosionIntervalModifier += currentGamemode.DifficultyIntervalChange;
+    }
 }

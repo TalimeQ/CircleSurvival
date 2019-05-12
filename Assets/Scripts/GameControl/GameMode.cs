@@ -12,7 +12,7 @@ public class GameMode : ScriptableObject
     public float StartingMinCircleTimer;
     public float blackCircleChance;
     [Tooltip("Chance for removed circle, to order another circle spawn")]
-    public float DoubleTapChance;
+    public float BonusSpawnChance;
 
     public float MinimalSpawnInterval;
 }

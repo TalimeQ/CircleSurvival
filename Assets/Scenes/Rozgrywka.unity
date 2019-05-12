@@ -429,9 +429,7 @@ MonoBehaviour:
   currentGamemode: {fileID: 11400000, guid: c45937112ccbf9b4cbd5e61332584ece, type: 2}
   circleSpawner: {fileID: 176163309}
   uiController: {fileID: 1066337513}
-  spawnedCircles:
-  - {fileID: 834408544732775701, guid: 9a3a7c40a4585074daf96bd6416b0d32, type: 3}
-  - {fileID: 1131573377025880137, guid: 7829f6fbff6272c418137e2602d58e20, type: 3}
+  popAudioSource: {fileID: 176163311}
 --- !u!82 &176163311
 AudioSource:
   m_ObjectHideFlags: 0

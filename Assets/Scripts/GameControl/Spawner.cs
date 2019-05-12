@@ -7,7 +7,6 @@ namespace Arcade.Spawn {
     public class Spawner : MonoBehaviour , ISpawnListener
     {
         Vector2 screenSize;
-
         [SerializeField]
         public List<RectTransform> circlePositions;
             
@@ -17,7 +16,7 @@ namespace Arcade.Spawn {
             circlePositions = new List<RectTransform>();
         }
 
-        private void RandomizePosition(RectTransform trans)
+        private void RandomizeSpawnPosition(RectTransform trans)
         {
             SetNewPosition(trans);
             CheckIfOverlaps(trans);
@@ -35,12 +34,13 @@ namespace Arcade.Spawn {
                     break;
                 }
             }
-            if (Overlapped) RandomizePosition(trans);
+            if (Overlapped) RandomizeSpawnPosition(trans);
         }
 
         private void SetNewPosition(RectTransform trans)
         {
             float yMin, yMax, xMin, xMax;
+            // This setup will keep new position in the bounds of the screen, meaning that game is fair
             xMin = trans.rect.width;
             xMax = screenSize.x - trans.rect.width;
             yMin = trans.rect.height;
@@ -50,9 +50,19 @@ namespace Arcade.Spawn {
             trans.position = newPosition;
         }
 
-        public void RequestRespawn(BaseCircle circle)
+        private void SetSpawnPosition(GameObject spawnedObject)
         {
-            Spawn(circle.gameObject.tag, circle.CurrentExplosionModifier);
+            RectTransform objTransform = spawnedObject.transform as RectTransform;
+            RandomizeSpawnPosition(objTransform);
+            circlePositions.Add(objTransform);
+        }
+
+        private bool RectOverlaps(RectTransform rectTrans1, RectTransform rectTrans2)
+        {
+            Rect rect1 = new Rect(rectTrans1.localPosition.x, rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
+            Rect rect2 = new Rect(rectTrans2.localPosition.x, rectTrans2.localPosition.y, rectTrans2.rect.width, rectTrans2.rect.height);
+
+            return rect1.Overlaps(rect2);
         }
 
         public void RequestRemove(GameObject removedObj)
@@ -63,20 +73,10 @@ namespace Arcade.Spawn {
         public void Spawn(string tag, float explosionIntervalModifier)
         {
             GameObject spawnedObject = ObjectPooler.SharedInstance.GetPooledObject(tag);
-            RectTransform objTransform = spawnedObject.transform as RectTransform;
-            RandomizePosition(objTransform);
-            circlePositions.Add(objTransform);
+            SetSpawnPosition(spawnedObject);
             spawnedObject.GetComponent<BaseCircle>().CurrentExplosionModifier = explosionIntervalModifier;
             spawnedObject.SetActive(true);
 
-        }
-
-        bool RectOverlaps(RectTransform rectTrans1, RectTransform rectTrans2)
-        {
-            Rect rect1 = new Rect(rectTrans1.localPosition.x, rectTrans1.localPosition.y, rectTrans1.rect.width, rectTrans1.rect.height);
-            Rect rect2 = new Rect(rectTrans2.localPosition.x, rectTrans2.localPosition.y, rectTrans2.rect.width, rectTrans2.rect.height);
-
-            return rect1.Overlaps(rect2);
         }
 
     }

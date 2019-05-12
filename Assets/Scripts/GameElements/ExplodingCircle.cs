@@ -6,14 +6,6 @@ using UnityEngine.UI;
 public class ExplodingCircle : BaseCircle
 {
 
-    
-    protected override void Explode()
-    {
-        this.gameObject.SetActive(false);
-        NotifyLose();
-        spawnListener.RequestRemove(this.gameObject);
-    }
-
     void Awake()
     {
         InitTimer();
@@ -23,7 +15,14 @@ public class ExplodingCircle : BaseCircle
     {
         CheckExplosion();
     }
-        
+
+    protected override void Explode()
+    {
+        this.gameObject.SetActive(false);
+        NotifyLose();
+        spawnListener.RequestRemove(this.gameObject);
+    }
+
     protected override void CheckExplosion() 
     {
         base.CheckExplosion();
